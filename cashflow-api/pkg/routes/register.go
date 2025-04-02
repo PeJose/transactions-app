@@ -13,8 +13,8 @@ func RegisterRoutes(app *fiber.App) {
 		validator,
 	)
 
-	registerAuth(app, handler)
-	registerCompanies(app, handler)
-	registerRates(app, handler)
-	registerTransactions(app, handler)
+	registerAuthRoutes(app, handler)
+	registerCompanyRoutes(app, handler)
+	registerRatesRoutes(app, handler)
+	registerTransactionsRoutes(app, handler)
 }

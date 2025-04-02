@@ -1,13 +1,16 @@
-import { getBalance } from "@/actions";
+import { getBalance } from "@/actions/transaction";
+import { decodeJwtFromCookies } from "@/utils/jwt";
 import type { ReactNode } from "react";
 import { PiHamburger } from "react-icons/pi";
 
 type NavbarProps = {
   title: ReactNode;
+  isLogin?: boolean;
 };
 
-export default async function Navbar({ title }: NavbarProps) {
-  const balance = await getBalance();
+export default async function Navbar({ title, isLogin = false }: NavbarProps) {
+  const iban = isLogin ? undefined : await decodeJwtFromCookies("iban");
+  const balance = isLogin ? undefined : await getBalance(iban!.toString());
   return (
     <header className="p-2">
       <div className="navbar rounded-xl bg-secondary px-8 text-secondary-content">
@@ -22,7 +25,8 @@ export default async function Navbar({ title }: NavbarProps) {
         </div>
         <div className="flex-1" />
         {balance && (
-          <div className="flex-0 bg-base-100 rounded-xl px-4 py-2 h-full text-base-content font-semibold">
+          <div className="h-full flex-0 text-nowrap rounded-xl bg-base-100 px-4 py-2 font-semibold text-base-content">
+            <span className="inline">Balance: </span>
             {balance.toLocaleString("pl-PL", {
               style: "currency",
               currency: "EUR",

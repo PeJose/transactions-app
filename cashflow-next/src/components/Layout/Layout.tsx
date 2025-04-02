@@ -1,11 +1,10 @@
 import type { ReactNode } from "react";
 import Menu from "./Menu";
 
-export default function Layout({
-  children,
-}: {
+type LayoutProps = {
   children: ReactNode;
-}) {
+};
+export default function Layout({ children }: LayoutProps) {
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer" type="checkbox" className="drawer-toggle" />

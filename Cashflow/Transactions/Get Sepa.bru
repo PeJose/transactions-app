@@ -5,7 +5,13 @@ meta {
 }
 
 get {
-  url: {{url}}/transactions/sepa/mine
+  url: {{url}}/transactions/sepa?limit=10
   body: none
   auth: none
+}
+
+params:query {
+  limit: 10
+  ~cursor: 46518c1c-1812-409a-9984-a5e40b828cf3$$2022-10-24T17:07:09Z
+  ~target: to
 }

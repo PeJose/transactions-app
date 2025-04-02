@@ -1,0 +1,15 @@
+meta {
+  name: Get by iban
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{url}}/companies/iban/:iban
+  body: none
+  auth: inherit
+}
+
+params:path {
+  iban: FR7209925764719308621072695
+}

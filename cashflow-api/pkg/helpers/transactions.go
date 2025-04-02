@@ -1,11 +1,13 @@
 package helpers
 
 import (
+	"cashflow/pkg/middleware"
 	"cashflow/pkg/models"
 	"sort"
 	"strings"
 	"time"
 
+	"github.com/gofiber/fiber/v2"
 	"github.com/jbub/banking/iban"
 )
 
@@ -44,7 +46,6 @@ func TransformRates(rates []models.Rate, currency models.Currency) models.RateMa
 	return rateMap
 }
 
-// DefaultToCurrentDate safely retrieves the date of a transaction or defaults to the current date.
 func DefaultToCurrentDate(transactions []models.Transaction, index int) time.Time {
 	if index >= 0 && index < len(transactions) {
 		return transactions[index].GetDate()
@@ -52,9 +53,18 @@ func DefaultToCurrentDate(transactions []models.Transaction, index int) time.Tim
 	return time.Now()
 }
 
-// SortTransactionsByDate sorts a slice of transactions by their date in ascending order.
 func SortTransactionsByDate(transactions []models.Transaction) {
 	sort.Slice(transactions, func(i, j int) bool {
 		return transactions[i].GetDate().Before(transactions[j].GetDate())
 	})
+}
+
+func GetIban(c *fiber.Ctx) (string, error) {
+	userClaims := middleware.GetUser(c)
+	if userClaims == nil {
+		return "", ErrorResponse(c, fiber.ErrUnauthorized)
+	}
+
+	userIban := userClaims["iban"].(string)
+	return c.Query("iban", userIban), nil
 }

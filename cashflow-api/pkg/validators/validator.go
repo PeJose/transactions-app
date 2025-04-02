@@ -21,7 +21,6 @@ func (v *Validator) Validate(data interface{}) error {
 }
 
 func (v *Validator) Format(err error) string {
-	// Format validation errors into a readable string
 	if validationErrors, ok := err.(validator.ValidationErrors); ok {
 		var formattedErrors string
 		for _, fieldError := range validationErrors {

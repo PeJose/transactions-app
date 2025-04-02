@@ -13,26 +13,6 @@ import (
 type companyStore struct {
 }
 
-func (cs *companyStore) GetById(id int) (*models.Company, error) {
-	baseUrl, err := url.JoinPath(config.ApiUrl, "companies", fmt.Sprint(id))
-	if err != nil {
-		return nil, err
-	}
-
-	res, err := http.Get(baseUrl)
-	if err != nil {
-		return nil, err
-	}
-
-	defer res.Body.Close()
-	var company *models.Company
-	if err := helpers.ReadBody(res, &company); err != nil {
-		return nil, err
-	}
-
-	return company, nil
-}
-
 func (cs *companyStore) GetAll(afterId, limit int) ([]models.Company, error) {
 	baseUrl, err := url.JoinPath(config.ApiUrl, "companies")
 	if err != nil {
@@ -75,7 +55,7 @@ func (cs *companyStore) GetByIban(iban string) (*models.Company, error) {
 			}
 		}
 	}
-	
+
 	return nil, fmt.Errorf("company with IBAN %s not found", iban)
 }
 

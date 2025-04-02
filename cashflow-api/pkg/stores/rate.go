@@ -13,7 +13,6 @@ import (
 type rateStore struct {
 }
 
-// GetAll implements interfaces.RateStore.
 func (r *rateStore) GetAll() ([]models.Rate, error) {
 	u, err := url.JoinPath(config.ApiUrl, "exchange-rates")
 	if err != nil {
@@ -35,7 +34,6 @@ func (r *rateStore) GetAll() ([]models.Rate, error) {
 	return rates, nil
 }
 
-// GetOne implements interfaces.RateStore.
 func (r *rateStore) GetOne(currency string) (*models.Rate, error) {
 	rates, err := r.GetAll()
 	if err != nil {

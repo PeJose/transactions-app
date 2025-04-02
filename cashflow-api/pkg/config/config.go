@@ -17,7 +17,7 @@ func Load() {
 	}
 
 	Port = getEnv("PORT", "8080")
-	ApiUrl = getEnv("API_URL", "http://localhost:8080")
+	ApiUrl = getEnv("NEXT_PUBLIC_API_URL", "http://localhost:8080")
 	SigningKey = getEnv("SIGNING_KEY", "")
 }
 

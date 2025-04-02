@@ -37,7 +37,9 @@ func listRoutes(app *fiber.App) {
 	println("Registered Routes:")
 	for _, route := range app.Stack() {
 		for _, r := range route {
-			println(r.Method, r.Path)
+			if r.Method == "POST" || r.Method == "GET" {
+				println(r.Method, r.Path)
+			}
 		}
 	}
 }

@@ -38,7 +38,8 @@
       },
       "suspicious": {
         "useAwait": "warn",
-        "noArrayIndexKey": "info"
+        "noArrayIndexKey": "info",
+        "noConsoleLog": "warn"
       },
       "performance": {
         "noAccumulatingSpread": "warn"

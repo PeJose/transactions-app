@@ -5,7 +5,13 @@ meta {
 }
 
 get {
-  url: {{url}}/transactions/swift/mine
+  url: {{url}}/transactions/swift?limit=10&target=to
   body: none
   auth: none
+}
+
+params:query {
+  limit: 10
+  target: to
+  ~cursor: 47c6b41b-58c9-455d-b706-909334e37cdf$$2021-07-07T15:47:57Z
 }

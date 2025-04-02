@@ -25,3 +25,21 @@ export type TransactionPerCountry = {
   occurrances: number;
   country: string;
 };
+
+export type InfiniteTransaction<T> = {
+  hasNext: boolean;
+  lastCursor: string;
+  transactions: T[];
+};
+
+export type Transaction = {
+  id: string;
+  amount: number;
+  currency: string;
+  timestamp: string;
+  from: string;
+  to: string;
+};
+
+export type TransactionType = "SEPA" | "SWIFT";
+export type TransactionTarget = "from" | "to";

@@ -16,7 +16,6 @@ func Protected() fiber.Handler {
 		ErrorHandler: jwtError,
 		TokenLookup:  "cookie:jwt-token",
 		SuccessHandler: func(c *fiber.Ctx) error {
-			// Extract user claims from the token
 			user := c.Locals("user")
 			if user != nil {
 				claims := user.(*jwt.Token).Claims.(jwt.MapClaims)

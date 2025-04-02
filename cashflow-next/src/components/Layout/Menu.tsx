@@ -1,10 +1,9 @@
 "use client";
-import { getPathname } from "@/utils/navigation";
 import classnames from "classnames";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
-import { PiHouse, PiListMagnifyingGlass, PiMoney } from "react-icons/pi";
+import { PiHouse, PiMoney } from "react-icons/pi";
 
 type MenuItem = {
   title: string;
@@ -19,20 +18,14 @@ const MenuList: MenuItem[] = [
     icon: <PiHouse />,
   },
   {
-    href: "/charts",
-    title: "Charts",
+    href: "/overview",
+    title: "Overview",
     icon: <PiMoney />,
-  },
-  {
-    href: "/transactions",
-    title: "Transactions",
-    icon: <PiListMagnifyingGlass />,
   },
 ];
 
 export default function Menu() {
   const path = usePathname();
-  console.log(path);
   return (
     <div className="h-full p-2">
       <div className="menu h-full rounded-xl bg-base-200 text-base-content">

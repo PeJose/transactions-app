@@ -1,22 +1,43 @@
 # https://taskfile.dev
 
-version: '3'
+version: "3"
 
 tasks:
-  docker-compose-up:
-    aliases: 
-      - dcu
-    cmds:
-      - docker-compose up -d --build
-
   docker-compose-down:
+    desc: Stop and remove all running containers.
     aliases:
       - dcd
     cmds:
       - docker-compose down
+
   docker-compose-restart:
+    desc: Restart all containers with a rebuild.
     aliases:
       - dcr
     cmds:
-      - task: dcd
-      - task: dcu
+      - docker-compose down
+      - docker-compose up -d --build
+
+  docker-compose-restart-cashflow-next:
+    desc: Restart only the cashflow-next container with a rebuild.
+    aliases:
+      - dcrc
+    cmds:
+      - docker-compose down cashflow-next
+      - docker-compose build cashflow-next
+      - docker-compose up -d cashflow-next
+
+  docker-compose-restart-cashflow-api:
+    desc: Restart only the cashflow-api container with a rebuild.
+    aliases:
+      - dcrca
+    cmds:
+      - docker-compose down cashflow-api
+      - docker-compose build cashflow-api
+      - docker-compose up -d cashflow-api
+
+  pnpm-format:
+    desc: Format the codebase using pnpm.
+    aliases:
+      - fmt
+    cmd: pnpm format
