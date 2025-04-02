@@ -1,0 +1,15 @@
+meta {
+  name: Get Rate
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{url}}/rates/:currency
+  body: none
+  auth: inherit
+}
+
+params:path {
+  currency: USD
+}

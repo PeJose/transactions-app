@@ -1,0 +1,15 @@
+meta {
+  name: Get Balance in Time
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{url}}/transactions/balance?currency=EUR
+  body: none
+  auth: none
+}
+
+params:query {
+  currency: EUR
+}

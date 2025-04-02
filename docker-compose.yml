@@ -1,0 +1,33 @@
+include:
+  - ./archive/docker-compose-candidate.yml
+
+services:
+  cashflow-api:
+    container_name: cashflow-api
+    depends_on:
+      - cdm-api
+    build:
+      dockerfile: ./cashflow-api/Dockerfile
+      context: ./
+    volumes:
+      - ./cashflow-api:/app
+    networks:
+      - cdm
+    ports:
+      - 8081:8080
+  cashflow-next:
+    container_name: cashflow-next
+    depends_on:
+      - cashflow-api
+    build:
+      dockerfile: ./cashflow-next/Dockerfile
+      context: ./
+    volumes:
+      - ./cashflow-next:/app
+      - /app/node_modules
+    ports:
+      - 3000:3000
+    networks:
+      - cdm
+    environment:
+      - NODE_ENV=development

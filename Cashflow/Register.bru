@@ -1,0 +1,24 @@
+meta {
+  name: Register
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{url}}/auth/register
+  body: formUrlEncoded
+  auth: none
+}
+
+body:json {
+  {
+    "email": "alalal",
+    "password": "alalal"
+  }
+}
+
+body:form-urlencoded {
+  email: {{user_email}}
+  password: {{user_password}}
+  iban: {{user_iban}}
+}

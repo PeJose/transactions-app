@@ -1,0 +1,22 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+  docker-compose-up:
+    aliases: 
+      - dcu
+    cmds:
+      - docker-compose up -d --build
+
+  docker-compose-down:
+    aliases:
+      - dcd
+    cmds:
+      - docker-compose down
+  docker-compose-restart:
+    aliases:
+      - dcr
+    cmds:
+      - task: dcd
+      - task: dcu
