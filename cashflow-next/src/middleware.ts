@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";
 import { jwtVerify } from "jose";
+import { type NextRequest, NextResponse } from "next/server";
 
 export async function middleware(req: NextRequest) {
   const token = req.cookies.get("jwt-token")?.value;
@@ -23,10 +23,11 @@ export async function middleware(req: NextRequest) {
     const exp = payload.exp;
 
     if (exp && exp * 1000 > Date.now()) {
-      return NextResponse.next();
-    } else {
-      return NextResponse.redirect(new URL("/login", req.url));
+      const headers = new Headers(req.headers);
+      headers.set("x-current-path", req.nextUrl.pathname);
+      return NextResponse.next({ headers });
     }
+    return NextResponse.redirect(new URL("/login", req.url));
   } catch (error) {
     console.error("Token verification failed:", error);
     return NextResponse.redirect(new URL("/login", req.url));

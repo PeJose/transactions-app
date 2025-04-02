@@ -17,6 +17,9 @@ export type Company = {
   address: string;
 };
 
+export type Balance = number;
+export type CompanyWithBalance = Balance & Company;
+
 export type TransactionPerCountry = {
   amount: number;
   occurrances: number;

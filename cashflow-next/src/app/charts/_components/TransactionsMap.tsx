@@ -1,5 +1,5 @@
 "use client";
-import { TransactionPerCountry } from "@/types";
+import type { TransactionPerCountry } from "@/types";
 import Chart from "react-google-charts";
 
 export default function TransactionsMap({

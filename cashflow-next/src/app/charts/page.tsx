@@ -1,13 +1,14 @@
-import ChartBalance from "./_components/ChartBalance";
-import { decodeJwtFromCookies } from "@/utils/jwt";
 import { Container } from "@/components";
+import { decodeJwtFromCookies } from "@/utils/jwt";
+import * as IBAN from "iban-ts";
+import ChartBalance from "./_components/ChartBalance";
 import TransactionsMap from "./_components/TransactionsMap";
+
 import {
   getBalanceInTime,
   getCompanyInfo,
   getTransactionsPerCountry,
-} from "./actions";
-import * as IBAN from "iban-ts";
+} from "@/actions";
 
 export default async function ChartsPage({
   searchParams,
@@ -19,18 +20,20 @@ export default async function ChartsPage({
   if (!IBAN.isValid(iban)) {
     return (
       <Container title="Invalid iban">
-        <h3 className="text-lg text-error">Iban you provided is not valid</h3>
+        <h3 className="text-error text-lg">Iban you provided is not valid</h3>
       </Container>
     );
   }
 
-  const companyInfo = await getCompanyInfo(iban);
-  const balanceInTime = await getBalanceInTime(iban);
-  const transactionsPerCountry = await getTransactionsPerCountry(iban);
+  const companyInfo = await getCompanyInfo(companyIban);
+  const balanceInTime = await getBalanceInTime(companyIban);
+  const transactionsPerCountry = await getTransactionsPerCountry(companyIban);
+  const companyTitle = `Companies - ${iban === userIban ? "Your company" : companyInfo.name}`;
 
   return (
-    <Container title={companyInfo.name}>
+    <Container title={companyTitle}>
       <div className="grid grid-cols-3 gap-4">
+        <h2 className="text-lg col-span-3">{companyInfo.name}</h2>
         <ChartBalance data={balanceInTime} />
         <TransactionsMap data={transactionsPerCountry} />
       </div>

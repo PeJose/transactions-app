@@ -35,7 +35,7 @@ export default function ChartBalance({ data }: ChartBalanceProps) {
     <ResponsiveContainer
       width="100%"
       height="100%"
-      className="min-h-[500px] col-span-2"
+      className="col-span-2 min-h-[500px]"
     >
       <AreaChart
         width={500}
@@ -57,15 +57,14 @@ export default function ChartBalance({ data }: ChartBalanceProps) {
         <YAxis
           dataKey="amount"
           tickFormatter={(val) =>
-            val.toLocaleString("en-US", { style: "currency", currency: "EUR" })
+            val.toLocaleString("pl-PL", { style: "currency", currency: "EUR" })
           }
           width={100}
-          domain={["dataMin", "dataMax"]}
         />
         <Tooltip
           labelFormatter={(val) => new Date(val).toDateString()}
           formatter={(value: number) =>
-            value.toLocaleString("en-US", {
+            value.toLocaleString("pl-PL", {
               style: "currency",
               currency: "EUR",
             })

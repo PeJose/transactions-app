@@ -1,5 +1,5 @@
 import { Container } from "@/components";
-import { fetchApi } from "@/utils/api";
+import { fetchApi } from "@/utils/api/server";
 import Link from "next/link";
 
 type Company = {
@@ -44,7 +44,7 @@ function PaginatedTable({
                 <td className="p-2">{item.address}</td>
                 <td className="p-2">
                   {item.ibans.map((iban) => (
-                    <Link key={iban} href={`/charts?iban=${iban}`}>
+                    <Link key={iban} href={`/charts?companyIban=${iban}`}>
                       {iban}
                     </Link>
                   ))}
@@ -55,21 +55,22 @@ function PaginatedTable({
         </tbody>
       </table>
 
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <Link
           href={
             currentCursor && currentCursor > "0"
               ? `/?afterId=${currentCursor}`
               : "/?afterId=0"
           }
-          className={`btn btn-primary`}
+          className={"btn btn-primary"}
         >
           Previous
         </Link>
         <Link
           href={nextCursor ? `/?afterId=${nextCursor}` : "#"}
-          className={`btn btn-primary ${!nextCursor ? "opacity-50 pointer-events-none" : ""
-            }`}
+          className={`btn btn-primary ${
+            !nextCursor ? "pointer-events-none opacity-50" : ""
+          }`}
         >
           Next
         </Link>

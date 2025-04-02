@@ -106,7 +106,8 @@ func (h *Handler) TransactionsGetTransactionsPreCountry(c *fiber.Ctx) error {
 		return helpers.ErrorResponse(c, fiber.ErrUnauthorized)
 	}
 
-	iban := userClaims["iban"].(string)
+	userIban := userClaims["iban"].(string)
+	iban := c.Query("iban", userIban)
 
 	rates, err := h.rateStore.GetAll()
 	if err != nil {

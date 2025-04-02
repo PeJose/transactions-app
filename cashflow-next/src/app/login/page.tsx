@@ -1,11 +1,12 @@
 import { Container } from "@/components";
-import { fetchApi } from "@/utils/api";
+import { fetchApi } from "@/utils/api/server";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default function LoginPage() {
   return (
     <Container title="login">
-      <form className="flex flex-col gap-4 max-w-max" action={login}>
+      <form className="flex max-w-max flex-col gap-4 mx-auto" action={login}>
         <label className="input">
           Email:
           <input type="text" name="email" required />
@@ -14,7 +15,9 @@ export default function LoginPage() {
           Password:
           <input type="password" name="password" required />
         </label>
-        <button className="btn btn-primary" type="submit">Login</button>
+        <button className="btn btn-primary" type="submit">
+          Login
+        </button>
       </form>
     </Container>
   );
@@ -38,5 +41,7 @@ async function login(formData: FormData) {
 
   // Handle the response, e.g., set cookies or redirect
   const cookieStore = await cookies();
-  cookieStore.set("jwt-token", token)
+  cookieStore.set("jwt-token", token);
+
+  redirect("/");
 }
